@@ -21,19 +21,22 @@ body {
 }
 
 .app-header h1 {
+  color: #000000;
   margin: 0;
   font-size: 2rem;
 }
 
 .subtitle {
   margin-top: 10px;
-  color: #6b7280;
+  color: #000000;
   font-size: 1rem;
 }
 
 .dashboard-content {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
   padding: 40px 20px;
 }
 
@@ -44,8 +47,54 @@ body {
   padding: 32px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  text-align: center;
 }
 
 .placeholder-section h2 {
+  color: #000000;
+  opacity: 1;
   margin-top: 0;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.form-section {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 800px;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.form-section h2 {
+  color: #000000;
+  opacity: 1;
+  margin-top: 0;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.transaction-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* ⭐ 核心：所有输入项居中 */
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;  /* label 左对齐（更专业） */
+  width: 100%;
+  max-width: 300px;         /* ⭐ 控制宽度 */
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;   /* ⭐ 填满 form-group */
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
 }
