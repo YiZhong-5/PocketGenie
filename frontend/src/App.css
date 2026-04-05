@@ -129,3 +129,43 @@ body {
   font-weight: bold;
   margin: 0;
 }
+
+.transaction-item {
+  width: 100%;
+  max-width: 800px;
+  background-color: #ffffff;
+  padding: 16px 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.transaction-left h4 {
+  margin: 0;
+}
+
+.transaction-left p {
+  margin: 4px 0 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.transaction-right .expense {
+  color: #dc2626;
+  font-weight: bold;
+}
+
+.transaction-list {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.transaction-list h2 {
+  margin-bottom: 10px;
+  text-align: center;
+}
