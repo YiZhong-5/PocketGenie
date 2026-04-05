@@ -1,5 +1,6 @@
 import Header from "../components/Header";
 import TransactionForm from "../components/TransactionForm";
+import SummaryCards from "../components/SummaryCards";
 
 function Dashboard() {
   return (
@@ -14,6 +15,7 @@ function Dashboard() {
         </section>
 
         <TransactionForm />
+        <SummaryCards />
       </main>
     </div>
   );

@@ -98,3 +98,34 @@ body {
   border: 1px solid #d1d5db;
   border-radius: 8px;
 }
+
+.summary-section {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.summary-card {
+  background-color: #ffffff;
+  flex: 1;
+  min-width: 220px;
+  max-width: 390px;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.summary-card h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.summary-card p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
