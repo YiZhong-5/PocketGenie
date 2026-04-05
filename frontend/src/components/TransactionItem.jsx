@@ -1,13 +1,15 @@
-function TransactionItem() {
+function TransactionItem({ title, category, amount, type }) {
     return (
       <div className="transaction-item">
         <div className="transaction-left">
-          <h4>Coffee</h4>
-          <p>Food</p>
+          <h4>{title}</h4>
+          <p>{category}</p>
         </div>
   
         <div className="transaction-right">
-          <span className="expense">- $6.50</span>
+          <span className={type === "expense" ? "expense" : "income"}>
+            {type === "expense" ? "- " : "+ "}${amount}
+          </span>
         </div>
       </div>
     );
