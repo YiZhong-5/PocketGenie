@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 
-function TransactionForm({ addTransaction, editingTransaction, updateTransaction }) {
+function EditTransactionForm({
+  editingTransaction,
+  updateTransaction,
+  cancelEdit,
+}) {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
@@ -22,76 +26,60 @@ function TransactionForm({ addTransaction, editingTransaction, updateTransaction
       return;
     }
 
-    if (editingTransaction) {
-      const updatedTransaction = {
-        id: editingTransaction.id,
-        title: title,
-        amount: Number(amount),
-        category: category,
-        type: type,
-      };
+    const updatedTransaction = {
+      id: editingTransaction.id,
+      title: title,
+      amount: Number(amount),
+      category: category,
+      type: type,
+    };
 
-      updateTransaction(updatedTransaction);
-    } else {
-      const newTransaction = {
-        id: Date.now(),
-        title: title,
-        amount: Number(amount),
-        category: category,
-        type: type,
-      };
-
-      addTransaction(newTransaction);
-    }
-
-    setTitle("");
-    setAmount("");
-    setCategory("");
-    setType("expense");
+    updateTransaction(updatedTransaction);
   };
+
+  if (!editingTransaction) {
+    return null;
+  }
 
   return (
     <section className="form-section">
-      <h2>{editingTransaction ? "Edit Transaction" : "Add New Transaction"}</h2>
+      <h2>Edit Transaction</h2>
 
       <form className="transaction-form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="title">Title</label>
+          <label htmlFor="edit-title">Title</label>
           <input
             type="text"
-            id="title"
-            placeholder="e.g. Coffee"
+            id="edit-title"
             value={title}
             onChange={(event) => setTitle(event.target.value)}
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="amount">Amount</label>
+          <label htmlFor="edit-amount">Amount</label>
           <input
             type="number"
-            id="amount"
-            placeholder="e.g. 6.50"
+            id="edit-amount"
             value={amount}
             onChange={(event) => setAmount(event.target.value)}
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="category">Category</label>
+          <label htmlFor="edit-category">Category</label>
           <input
             type="text"
-            id="category"
-            placeholder="e.g. Food"
+            id="edit-category"
             value={category}
             onChange={(event) => setCategory(event.target.value)}
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="type">Type</label>
+          <label htmlFor="edit-type">Type</label>
           <select
-            id="type"
+            id="edit-type"
             value={type}
             onChange={(event) => setType(event.target.value)}
           >
@@ -100,12 +88,22 @@ function TransactionForm({ addTransaction, editingTransaction, updateTransaction
           </select>
         </div>
 
-        <button type="submit" className="submit-btn">
-          {editingTransaction ? "Update Transaction" : "Add Transaction"}
-        </button>
+        <div className="edit-actions">
+          <button type="submit" className="submit-btn">
+            Update Transaction
+          </button>
+
+          <button
+            type="button"
+            className="cancel-btn"
+            onClick={cancelEdit}
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </section>
   );
 }
 
-export default TransactionForm;
+export default EditTransactionForm;
