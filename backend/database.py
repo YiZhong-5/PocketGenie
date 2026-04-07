@@ -5,3 +5,7 @@ password = "root"
 database_name = "pocketgenie"
 DATABASE_URL = f"mysql+pymysql://{username}:{password}@localhost:3307/{database_name}"
 engine = create_engine(DATABASE_URL, echo=True)
+
+def get_session():
+    with Session(engine) as session:
+        yield session
