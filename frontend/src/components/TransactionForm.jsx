@@ -1,19 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-function TransactionForm({ addTransaction, editingTransaction, updateTransaction }) {
+function TransactionForm({ addTransaction }) {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
   const [type, setType] = useState("expense");
-
-  useEffect(() => {
-    if (editingTransaction) {
-      setTitle(editingTransaction.title);
-      setAmount(editingTransaction.amount);
-      setCategory(editingTransaction.category);
-      setType(editingTransaction.type);
-    }
-  }, [editingTransaction]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -22,27 +13,14 @@ function TransactionForm({ addTransaction, editingTransaction, updateTransaction
       return;
     }
 
-    if (editingTransaction) {
-      const updatedTransaction = {
-        id: editingTransaction.id,
-        title: title,
-        amount: Number(amount),
-        category: category,
-        type: type,
-      };
+    const newTransaction = {
+      title: title,
+      amount: Number(amount),
+      category: category,
+      type: type,
+    };
 
-      updateTransaction(updatedTransaction);
-    } else {
-      const newTransaction = {
-        id: Date.now(),
-        title: title,
-        amount: Number(amount),
-        category: category,
-        type: type,
-      };
-
-      addTransaction(newTransaction);
-    }
+    addTransaction(newTransaction);
 
     setTitle("");
     setAmount("");
@@ -52,7 +30,7 @@ function TransactionForm({ addTransaction, editingTransaction, updateTransaction
 
   return (
     <section className="form-section">
-      <h2>{editingTransaction ? "Edit Transaction" : "Add New Transaction"}</h2>
+      <h2>Add New Transaction</h2>
 
       <form className="transaction-form" onSubmit={handleSubmit}>
         <div className="form-group">
@@ -101,7 +79,7 @@ function TransactionForm({ addTransaction, editingTransaction, updateTransaction
         </div>
 
         <button type="submit" className="submit-btn">
-          {editingTransaction ? "Update Transaction" : "Add Transaction"}
+          Add Transaction
         </button>
       </form>
     </section>
