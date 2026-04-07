@@ -1,16 +1,63 @@
-# React + Vite
+PocketGenie – A Full-Stack Expense Tracking Web Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Introduction
+PocketGenie is designed to help users track their daily income and expenses in a simple and intuitive way. Many people struggle with managing personal finances due to scattered records or lack of clarity in spending patterns. This application provides a centralized platform where users can easily record, view, update, and manage their transactions, improving financial awareness and decision-making.
 
-Currently, two official plugins are available:
+## Technical Stack Illustration
+Frontend (React + Vite)
+        ↓ (Fetch API)
+Backend (FastAPI)
+        ↓ (SQLModel ORM)
+Database (MySQL)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Frontend: React (Vite)
+Styling: CSS (custom styling via App.css)
+Routing: Single-page structure (no routing required for MVP)
+Backend: FastAPI (Python)
+Database: MySQL (managed via MySQL Workbench)
+API Communication: Fetch API (RESTful endpoints)
+Deployment: Not deployed (local development environment)
 
-## React Compiler
+## Feature List
+Add new transactions (income and expenses)
+Edit existing transactions
+Delete transactions
+Real-time data synchronization with backend
+Dynamic calculation of total income and expenses
+Conditional rendering of edit form
+Basic form validation (empty input prevention)
+Clean and modular component-based UI
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Folder Structure
+PocketGenie/
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Header.jsx
+│   │   │   ├── TransactionForm.jsx
+│   │   │   ├── EditTransactionForm.jsx
+│   │   │   ├── TransactionList.jsx
+│   │   │   ├── TransactionItem.jsx
+│   │   │   └── SummaryCards.jsx
+│   │   │
+│   │   ├── pages/
+│   │   │   └── Dashboard.jsx
+│   │   │
+│   │   ├── services/
+│   │   │   └── api.js
+│   │   │
+│   │   ├── App.jsx
+│   │   │
+│   └── └── App.css
+│
+├── backend/
+│   ├── main.py
+│   ├── crud.py
+│   ├── database.py
+│   └── .venv/
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Challenges & Solutions
+One major challenge was integrating the frontend with the backend API while handling asynchronous data updates. Initially, newly added transactions would not persist after page refresh due to issues in request handling and state updates. This was resolved by ensuring proper API calls and re-fetching data after each CRUD operation.
+Another challenge involved handling CORS errors caused by mismatched frontend and backend ports, which prevented API communication. This was fixed by configuring FastAPI middleware to allow cross-origin requests.
+Additionally, separating concerns between frontend state management and backend data persistence required restructuring components and introducing a clear API layer (api.js). This improved maintainability and clarity of data flow across the application.
