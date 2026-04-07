@@ -1,44 +1,66 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import TransactionForm from "../components/TransactionForm";
 import EditTransactionForm from "../components/EditTransactionForm";
 import SummaryCards from "../components/SummaryCards";
 import TransactionList from "../components/TransactionList";
+import {
+  getTransactions,
+  addTransactionApi,
+  deleteTransactionApi,
+  updateTransactionApi,
+} from "../services/api";
 
 function Dashboard() {
-  const [transactions, setTransactions] = useState([
-    { id: 1, title: "Coffee", category: "Food", amount: 6.5, type: "expense" },
-    { id: 2, title: "Salary", category: "Income", amount: 1200, type: "income" },
-  ]);
-
+  const [transactions, setTransactions] = useState([]);
   const [editingTransaction, setEditingTransaction] = useState(null);
 
-  // ➕ Add
-  const addTransaction = (newTransaction) => {
-    setTransactions([newTransaction, ...transactions]);
+  useEffect(() => {
+    fetchTransactions();
+  }, []);
+
+  const fetchTransactions = async () => {
+    try {
+      const data = await getTransactions();
+      setTransactions(data);
+      console.log("Fetched transactions:", data);
+    } catch (error) {
+      console.error("Error fetching transactions:", error);
+    }
   };
 
-  // ❌ Delete
-  const deleteTransaction = (id) => {
-    setTransactions(transactions.filter((t) => t.id !== id));
+  const addTransaction = async (newTransaction) => {
+    try {
+      await addTransactionApi(newTransaction);
+      await fetchTransactions();
+    } catch (error) {
+      console.error("Error adding transaction:", error);
+    }
   };
 
-  // ✏️ 开始编辑
+  const deleteTransaction = async (id) => {
+    try {
+      await deleteTransactionApi(id);
+      await fetchTransactions();
+    } catch (error) {
+      console.error("Error deleting transaction:", error);
+    }
+  };
+
   const startEditTransaction = (transaction) => {
     setEditingTransaction(transaction);
   };
 
-  // ✅ 更新
-  const updateTransaction = (updatedTransaction) => {
-    setTransactions(
-      transactions.map((t) =>
-        t.id === updatedTransaction.id ? updatedTransaction : t
-      )
-    );
-    setEditingTransaction(null);
+  const updateTransaction = async (updatedTransaction) => {
+    try {
+      await updateTransactionApi(updatedTransaction.id, updatedTransaction);
+      await fetchTransactions();
+      setEditingTransaction(null);
+    } catch (error) {
+      console.error("Error updating transaction:", error);
+    }
   };
 
-  // 🚫 取消编辑
   const cancelEdit = () => {
     setEditingTransaction(null);
   };
@@ -48,6 +70,12 @@ function Dashboard() {
       <Header />
 
       <main className="dashboard-content">
+        <section className="placeholder-section">
+          <h2>Welcome to PocketGenie</h2>
+          <p>Add your transactions below to keep track of your income and expenses.</p>
+          <p>Stay organized and understand your spending at a glance.</p>
+        </section>
+
         <TransactionForm addTransaction={addTransaction} />
 
         <SummaryCards transactions={transactions} />
@@ -58,7 +86,6 @@ function Dashboard() {
           startEditTransaction={startEditTransaction}
         />
 
-        {/* ⭐ 编辑表单单独存在 */}
         <EditTransactionForm
           editingTransaction={editingTransaction}
           updateTransaction={updateTransaction}
